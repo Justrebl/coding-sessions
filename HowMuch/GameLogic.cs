@@ -4,9 +4,7 @@ namespace App
 {
     class GameLogic
     {
-        private int targetNumber = -1;
-        private string playerOneName = "";
-        private string playerTwoName = "";
+        public GameConfig Config = new GameConfig(){MaxValue = 200};
 
         public void InitializeGameSettings(int maxValue, bool randomRequired)
         {
@@ -20,15 +18,17 @@ namespace App
         private void randomizeTarget(int maxValue)
         {
             Random randomizer = new Random();
-            targetNumber = randomizer.Next(0, maxValue);
+            Config.TargetValue = randomizer.Next(0, maxValue);
         }
 
         private void askForPlayersNames()
         {
-            Console.WriteLine("Quel nom donner au Joueur 1 ?");
-            playerOneName = Console.ReadLine();
-            Console.WriteLine("Quel nom donner au Joueur 2 ?");
-            playerTwoName = Console.ReadLine();
+            Console.WriteLine("Quel est le nom du premier joueur ?");
+            Config.FirstPlayerName = Console.ReadLine();
+            Console.WriteLine($"Très bien, le joueur 1 s'appelle donc {Config.FirstPlayerName}.\n"+
+            "Comment s'appelle le second joueur ?");
+            Config.SecondPlayerName = Console.ReadLine ();
+            Console.WriteLine($"Très bien, le joueur 2 s'appelle donc {Config.SecondPlayerName}\n"+
         }
 
         private void askForTargetToUser(int maxValue)

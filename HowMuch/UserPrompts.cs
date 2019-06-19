@@ -27,11 +27,7 @@ namespace HMI
                     break;
                 case AnswerTypes.NombrePositif : 
                     int intResult = 0;
-                    isCorrectType = Int32.TryParse(inAnswer, out intResult);
-                    if(isCorrectType)
-                    {
-
-                    }
+                    isCorrectType = Int32.TryParse(inAnswer, out intResult) && intResult > 0;
                     break;
                 case AnswerTypes.OuiNon : 
                     isCorrectType = isCorrectBoolean(inAnswer);
