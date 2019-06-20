@@ -1,45 +1,48 @@
 using System;
+using HMI;
 
 namespace App
 {
     class GameLogic
     {
-        public GameConfig Config = new GameConfig(){MaxValue = 200};
-
-        public void InitializeGameSettings(int maxValue, bool randomRequired)
+        public GameConfig InitializeGameSettings(GameConfig initialConfig)
         {
-            askForPlayersNames();
-            if(randomRequired)
-                randomizeTarget(maxValue);
-            else
-                askForTargetToUser(maxValue);
+            initialConfig = askForPlayerName(initialConfig);
+            initialConfig = setRandomTargetValue(initialConfig);
+
+            return initialConfig;
         }
 
-        private void randomizeTarget(int maxValue)
+        public int EnterGameLoop(GameConfig config)
+        {
+            int nbTries = 1; //Number of attemps to find the expected target
+            int currentGuess = -1;
+            do
+            {
+                
+            } while(currentGuess != config.TargetValue);
+
+            return nbTries;
+        }
+
+        private bool isTargetMet (int currentValue, int targetValue)
+        {
+            
+        }
+
+        private GameConfig setRandomTargetValue(GameConfig config)
         {
             Random randomizer = new Random();
-            Config.TargetValue = randomizer.Next(0, maxValue);
+            config.TargetValue = randomizer.Next(0, config.MaxValue);
+            return config;
         }
 
-        private void askForPlayersNames()
+        //
+        private GameConfig askForPlayerName(GameConfig config)
         {
-            Console.WriteLine("Quel est le nom du premier joueur ?");
-            Config.FirstPlayerName = Console.ReadLine();
-            Console.WriteLine($"Très bien, le joueur 1 s'appelle donc {Config.FirstPlayerName}.\n"+
-            "Comment s'appelle le second joueur ?");
-            Config.SecondPlayerName = Console.ReadLine ();
-            Console.WriteLine($"Très bien, le joueur 2 s'appelle donc {Config.SecondPlayerName}\n"+
-        }
-
-        private void askForTargetToUser(int maxValue)
-        {
-            int number
-            // do
-            // {
-
-                Console.WriteLine($"{playerOneName} : Entre un nombre que {playerTwoName} devra trouver :");
-                Console.ReadLine();
-            // } while(targetNumber < 0);
+            Console.WriteLine("Quel est ton nom ?");
+            config.PlayerName = Console.ReadLine();
+            return config;
         }
     }    
 }

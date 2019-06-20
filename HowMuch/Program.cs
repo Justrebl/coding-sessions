@@ -7,13 +7,26 @@ namespace HowMuch
     {
         static void Main(string[] args)
         {
-            GameConfig config = new GameConfig(){MaxValue = 200};
+            //Define the initial config of the game
+            GameConfig config = new GameConfig()
+            {
+                MaxValue = 200
+            };
             GameLogic logic = new GameLogic();
 
-            logic.askForPlayersNames();
-            $"{config.FirstPlayerName} : Quelle sera la valeur (entre 0 et {config.MaxValue}) à trouver ?");
+            //Set the config on the run (players names and target value)
+            config = logic.InitializeGameSettings(config);
+            
+            //Loop of the game logic : Will keep asking the player to enter a new value until meeting the target
+            int nbAttempts = logic.EnterGameLoop(config);
+            
+            //Prompts the "guesser" with it's number of attempts to find the target
+            Console.WriteLine($"Félicitations {config.PlayerName} : Tu as trouvé le juste prix en {nbAttempts} tentatives");
 
+            //Waiting on "Enter" to exit the game
+            Console.ReadLine();
 
+            // ** End of the game **
         }
     }
 }
