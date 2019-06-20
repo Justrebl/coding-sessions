@@ -21,7 +21,8 @@ namespace HowMuch
             int nbAttempts = logic.EnterGameLoop(config);
             
             //Prompts the "guesser" with it's number of attempts to find the target
-            Console.WriteLine($"Félicitations {config.PlayerName} : Tu as trouvé le juste prix en {nbAttempts} tentatives");
+            Console.WriteLine($"Félicitations {config.PlayerName} : Tu as trouvé le juste prix ({config.TargetValue}) en {nbAttempts} tentatives !");
+            Console.WriteLine($"Peut-être pourras-tu mieux faire la prochaine fois ? ;)");
 
             //Waiting on "Enter" to exit the game
             Console.ReadLine();
