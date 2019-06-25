@@ -3,10 +3,10 @@ using System.Linq;
 
 namespace HMI
 {
-    public static class PromptsHelpers
+    public class PromptsHelpers
     {
-        private static string[] CORRECT_YES = new string[] {"Oui", "oui", "Vrai","vrai"};
-        private static string[] CORRECT_NO = new string[] {"Non", "non", "Faux", "faux"}; 
+        private readonly string[] CORRECT_YES = new string[] {"Oui", "oui", "Vrai","vrai"};
+        private readonly string[] CORRECT_NO = new string[] {"Non", "non", "Faux", "faux"}; 
 
         public enum AnswerTypes
         {
@@ -16,7 +16,7 @@ namespace HMI
         }
 
 #region Checkers
-        public static bool IsCorrectAnswerType(string inAnswer, AnswerTypes answerType)
+        public bool IsCorrectAnswerType(string inAnswer, AnswerTypes answerType)
         {
             bool isCorrectType = true;
             switch(answerType)
@@ -36,7 +36,7 @@ namespace HMI
             return isCorrectType;
         }
 
-        private static bool isCorrectBoolean(string inBool)
+        private bool isCorrectBoolean(string inBool)
         {
             if(CORRECT_YES.Contains(inBool) || CORRECT_NO.Contains(inBool))
             {
@@ -52,7 +52,7 @@ namespace HMI
         #endregion
         
         #region Converters
-            public static int GetPositiveNumberFromString(string inString)
+            public int GetPositiveNumberFromString(string inString)
             {
                 int result = 0;
                 if(IsCorrectAnswerType(inString, AnswerTypes.NombrePositif))
@@ -67,7 +67,7 @@ namespace HMI
                 }
             }
 
-            public static bool GetBooleanFromYesNoString(string inBool)
+            public bool GetBooleanFromYesNoString(string inBool)
             {
                 bool result = true;
                 if(isCorrectBoolean(inBool))

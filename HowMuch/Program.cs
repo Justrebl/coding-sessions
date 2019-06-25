@@ -1,5 +1,5 @@
 ﻿using System;
-using App;
+using HMI;
 
 namespace HowMuch
 {
@@ -7,22 +7,31 @@ namespace HowMuch
     {
         static void Main(string[] args)
         {
-            //Define the initial config of the game
-            GameConfig config = new GameConfig()
-            {
-                MaxValue = 200
-            };
-            GameLogic logic = new GameLogic();
+            int targetValue = 50; //Value player has to find
+            int nbTries = 0; //Number of attemps to find the expected target
+            int currentGuess = -1; //Current guess from player
 
-            //Set the config on the run (players names and target value)
-            config = logic.InitializeGameSettings(config);
-            
-            //Loop of the game logic : Will keep asking the player to enter a new value until meeting the target
-            int nbAttempts = logic.EnterGameLoop(config);
+            var helper = new PromptsHelpers(); //Helpers library adding
+
+            while(currentGuess != targetValue)
+            {
+                nbTries ++;
+                Console.Write("Tentative Numéro "+ nbTries +" : ");
+                currentGuess = helper.GetPositiveNumberFromString(Console.ReadLine());
+
+                    if (currentGuess > targetValue)
+                    {
+                        Console.WriteLine("Essayes encore : Moins");
+                    }
+                    else if(currentGuess < targetValue)
+                    {
+                        Console.WriteLine("Essayes encore : Plus");
+                    }
+            }
             
             //Prompts the "guesser" with it's number of attempts to find the target
-            Console.WriteLine($"Félicitations {config.PlayerName} : Tu as trouvé le juste prix ({config.TargetValue}) en {nbAttempts} tentatives !");
-            Console.WriteLine($"Peut-être pourras-tu mieux faire la prochaine fois ? ;)");
+            Console.WriteLine($"Félicitations ! Tu as trouvé le juste prix "+targetValue+" en "+nbTries+" tentatives !");
+            Console.WriteLine($"Penses-tu pouvoir mieux faire la prochaine fois ? ;)");
 
             //Waiting on "Enter" to exit the game
             Console.ReadLine();
